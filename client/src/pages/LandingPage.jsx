@@ -14,7 +14,7 @@ const fadeIn = keyframes`
 
 const MovableText = styled.p`
   font-size: 54px;
-  color: white;
+  color: #edc154;
   font-weight: 800;
   font-family: "Arial", sans-serif;
   margin: 0;
@@ -75,7 +75,7 @@ const LandingPage = () => {
         height: "100vh",
         width: "100vw",
         overflowX: "hidden",
-        backgroundImage: `url('public/images/federal.jpg')`,
+        backgroundImage: `url('/images/federal.jpg')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -83,6 +83,7 @@ const LandingPage = () => {
       <Box
         sx={{
           overflowX: "hidden",
+          overflowY: "hidden",
           backgroundColor: "rgba(0, 0, 0, 0.9)",
           position: "absolute",
           top: 0,
@@ -97,20 +98,20 @@ const LandingPage = () => {
             height: "70px",
             display: "flex",
             alignItems: "center",
-            justifyContent: "flex-end",
+            justifyContent: "end",
             gap: "20px",
-            paddingRight: "20px",
-            backgroundColor: "#fff",
+            backgroundColor: "#F6F5F5",
           }}
         >
           <Button
-            variant="contained"
-            color="primary"
-            style={{
-              marginRight: "10px",
-              backgroundColor: "#EDC154",
-              color: "#112846",
+            sx={{
+              background: "#112846",
+              color: "#F6F5F5",
+              "&:hover": {
+                background: "#192E77",
+              },
             }}
+            variant="contained"
             component={Link}
             to="/login"
           >
@@ -118,12 +119,14 @@ const LandingPage = () => {
           </Button>
           <Button
             sx={{
-              marginRight: "30px",
-              backgroundColor: "#EDC154",
-              color: "#112846",
+              background: "#112846",
+              color: "#F6F5F5",
+              marginRight: "25px",
+              "&:hover": {
+                background: "#192E77",
+              },
             }}
             variant="contained"
-            color="secondary"
             component={Link}
             to="/apply"
           >
@@ -142,7 +145,7 @@ const LandingPage = () => {
         >
           <Typography
             variant="h2"
-            sx={{ color: "white", fontWeight: 800, margin: 0 }}
+            sx={{ color: "#EDC154", fontWeight: 800, margin: 0 }}
           >
             Welcome
           </Typography>

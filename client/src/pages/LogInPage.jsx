@@ -1,7 +1,23 @@
 import React from "react";
-import { TextField, Button, Typography, Box, Paper } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Paper,
+  styled,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 
+const LoginButton = styled(Button)({
+  marginTop: "20px",
+  background: "#112846",
+  color: "#fff",
+  variant: "contained",
+  "&:hover": {
+    background: "#192E77",
+  },
+});
 const LogInPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,8 +36,10 @@ const LogInPage = () => {
       <Paper sx={{ width: "30%", padding: "20px 30px 80px 30px" }}>
         <Typography
           component="h1"
-          variant="h5"
+          variant="h4"
           textAlign={"center"}
+          color={"#EDC154"}
+          fontWeight={700}
           sx={{ marginBottom: "30px" }}
         >
           Login
@@ -47,21 +65,15 @@ const LogInPage = () => {
             type="password"
             id="password"
           />
-          <Button
+          <LoginButton
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
-            style={{
-              marginTop: "20px",
-              backgroundColor: "#EDC154",
-              color: "#112846",
-            }}
             component={Link}
             to="/home"
           >
             Login
-          </Button>
+          </LoginButton>
         </form>
       </Paper>
     </Box>
