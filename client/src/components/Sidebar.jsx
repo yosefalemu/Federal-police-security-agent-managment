@@ -158,7 +158,7 @@ export default function Sidebar() {
               background: isActive("profile") ? "lightgray" : "transparent",
             }}
             component={Link}
-            to=""
+            to="/profile"
           >
             <ListItemButton
               sx={{
@@ -178,6 +178,80 @@ export default function Sidebar() {
               </ListItemIcon>
               <ListItemText
                 primary="Profile"
+                sx={{
+                  opacity: open ? 1 : 0,
+                  display: { xs: "none", md: "block" },
+                  color: "gray",
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
+          <ListItem
+            disablePadding
+            sx={{
+              display: "block",
+              padding: { md: "0px 5px 0px 0px" },
+              color: "black",
+              background: isActive("agentslist") ? "lightgray" : "transparent",
+            }}
+            component={Link}
+            to="/agentslist"
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <PersonIcon sx={{ color: "#12596B" }} />
+              </ListItemIcon>
+              <ListItemText
+                primary="Agents"
+                sx={{
+                  opacity: open ? 1 : 0,
+                  display: { xs: "none", md: "block" },
+                  color: "gray",
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
+          <ListItem
+            disablePadding
+            sx={{
+              display: "block",
+              padding: { md: "0px 5px 0px 0px" },
+              color: "black",
+              background: isActive("employee") ? "lightgray" : "transparent",
+            }}
+            component={Link}
+            to="/employee"
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <PersonIcon sx={{ color: "#12596B" }} />
+              </ListItemIcon>
+              <ListItemText
+                primary="Employee"
                 sx={{
                   opacity: open ? 1 : 0,
                   display: { xs: "none", md: "block" },
