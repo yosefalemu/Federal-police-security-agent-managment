@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
+import Header from "../../components/Header";
+import Sidebar from "../../components/Sidebar";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import {
   Box,
@@ -13,15 +13,16 @@ import {
   styled,
 } from "@mui/material";
 
-const AddEmployeeButton = styled(Button)({
-  marginTop: "20px",
-  background: "#12596B",
+const CreateButton = styled(Button)({
+  marginTop: "24px",
+  background: "#112846",
+  borderRadius: "15px",
   "&:hover": {
-    background: "#0F4F5F",
+    background: "#192E77",
   },
 });
 
-const AddEmployee = () => {
+const CreateUserPage = () => {
   const [image, setImage] = useState(null);
   const handleFormChange = (e) => {
     // const { name, value } = e.target;
@@ -56,13 +57,16 @@ const AddEmployee = () => {
                     height: "90%",
                     width: "70%",
                     marginTop: "70px",
-                    borderRadius: "30px",
+                    borderRadius: "10px",
                   }}
-                  
                 >
                   <Box p={5}>
-                    <Typography variant="h5" color={"#667378"}>
-                      Add Employee to The System
+                    <Typography
+                      variant="h5"
+                      color={"#112846"}
+                      textAlign={"center"}
+                    >
+                      Create User
                     </Typography>
 
                     <form onSubmit={handleprofileInfo}>
@@ -114,7 +118,6 @@ const AddEmployee = () => {
                           width: "130px",
                           cursor: "pointer",
                           borderRadius: "5px",
-                          cursor: "pointer",
                           margin: "1.5rem auto",
                         }}
                         onMouseEnter={(event) => {
@@ -188,18 +191,9 @@ const AddEmployee = () => {
                         </label>
                       </div>
 
-                      <AddEmployeeButton
-                        type="submit"
-                        variant="contained"
-                        fullWidth
-                        sx={{
-                          marginTop: 3,
-                          background: "#667378",
-                          borderRadius: "15px",
-                        }}
-                      >
-                        add Employee
-                      </AddEmployeeButton>
+                      <CreateButton type="submit" variant="contained" fullWidth>
+                        Create User
+                      </CreateButton>
                     </form>
                   </Box>
                 </Paper>
@@ -212,4 +206,4 @@ const AddEmployee = () => {
   );
 };
 
-export default AddEmployee;
+export default CreateUserPage;

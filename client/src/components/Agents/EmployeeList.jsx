@@ -29,7 +29,7 @@ const EmployeeList = () => {
             <TableRow>
               <TableCell
                 sx={{
-                  color: "#12596B",
+                  color: "#112846",
                   display: { xs: "none", sm: "table-cell" },
                   width: "12%",
                 }}
@@ -38,19 +38,19 @@ const EmployeeList = () => {
               </TableCell>
               <TableCell
                 sx={{
-                  color: "#12596B",
+                  color: "#112846",
                   display: { xs: "none", md: "table-cell" },
                   width: "12%",
                 }}
               >
                 Manager Name
               </TableCell>
-              <TableCell sx={{ color: "#12596B", width: "12%" }}>
+              <TableCell sx={{ color: "#112846", width: "12%" }}>
                 Email
               </TableCell>
               <TableCell
                 sx={{
-                  color: "#12596B",
+                  color: "#112846",
                   display: { xs: "none", lg: "table-cell" },
                   width: "12%",
                 }}
@@ -59,7 +59,7 @@ const EmployeeList = () => {
               </TableCell>
               <TableCell
                 sx={{
-                  color: "#12596B",
+                  color: "#112846",
                   display: { xs: "none", lg: "table-cell" },
                   width: "12%",
                 }}
@@ -68,18 +68,18 @@ const EmployeeList = () => {
               </TableCell>
               <TableCell
                 sx={{
-                  color: "#12596B",
+                  color: "#112846",
                   display: { xs: "none", lg: "table-cell" },
                   width: "12%",
                 }}
               >
                 Employees Num
               </TableCell>
-              <TableCell sx={{ color: "#12596B", width: "3%" }}>Edit</TableCell>
-              <TableCell sx={{ color: "#12596B", width: "3%" }}>
+              <TableCell sx={{ color: "#112846", width: "3%" }}>Edit</TableCell>
+              <TableCell sx={{ color: "#112846", width: "3%" }}>
                 Delete
               </TableCell>
-              <TableCell sx={{ color: "#12596B", width: "3%" }}>
+              <TableCell sx={{ color: "#112846", width: "3%" }}>
                 Details
               </TableCell>
             </TableRow>

@@ -12,18 +12,16 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
-import PeopleIcon from "@mui/icons-material/People";
-import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import StoreIcon from "@mui/icons-material/Store";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import SecurityIcon from "@mui/icons-material/Security";
+import GroupsIcon from "@mui/icons-material/Groups";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
-import RequestPageIcon from "@mui/icons-material/RequestPage";
-import AddBusinessIcon from "@mui/icons-material/AddBusiness";
+
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAppStore } from "../appStore";
@@ -137,14 +135,14 @@ export default function Sidebar() {
                   justifyContent: "center",
                 }}
               >
-                <HomeIcon sx={{ color: "#12596B" }} />
+                <HomeIcon sx={{ color: "#EDC154", fontSize: "28px" }} />
               </ListItemIcon>
               <ListItemText
                 primary="Home"
                 sx={{
                   opacity: open ? 1 : 0,
                   display: { xs: "none", md: "block" },
-                  color: "gray",
+                  color: "#112846",
                 }}
               />
             </ListItemButton>
@@ -174,14 +172,14 @@ export default function Sidebar() {
                   justifyContent: "center",
                 }}
               >
-                <PersonIcon sx={{ color: "#12596B" }} />
+                <PersonIcon sx={{ color: "#EDC154", fontSize: "28px" }} />
               </ListItemIcon>
               <ListItemText
                 primary="Profile"
                 sx={{
                   opacity: open ? 1 : 0,
                   display: { xs: "none", md: "block" },
-                  color: "gray",
+                  color: "#112846",
                 }}
               />
             </ListItemButton>
@@ -211,14 +209,14 @@ export default function Sidebar() {
                   justifyContent: "center",
                 }}
               >
-                <PersonIcon sx={{ color: "#12596B" }} />
+                <SecurityIcon sx={{ color: "#EDC154", fontSize: "28px" }} />
               </ListItemIcon>
               <ListItemText
                 primary="Agents"
                 sx={{
                   opacity: open ? 1 : 0,
                   display: { xs: "none", md: "block" },
-                  color: "gray",
+                  color: "#112846",
                 }}
               />
             </ListItemButton>
@@ -248,14 +246,90 @@ export default function Sidebar() {
                   justifyContent: "center",
                 }}
               >
-                <PersonIcon sx={{ color: "#12596B" }} />
+                <GroupsIcon sx={{ color: "#EDC154", fontSize: "28px" }} />
               </ListItemIcon>
               <ListItemText
-                primary="Employee"
+                primary="Employees"
                 sx={{
                   opacity: open ? 1 : 0,
                   display: { xs: "none", md: "block" },
-                  color: "gray",
+                  color: "#112846",
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
+          <ListItem
+            disablePadding
+            sx={{
+              display: "block",
+              padding: { md: "0px 5px 0px 0px" },
+              color: "black",
+              background: isActive("addemployee") ? "lightgray" : "transparent",
+            }}
+            component={Link}
+            to="/addemployee"
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <GroupAddIcon sx={{ color: "#EDC154", fontSize: "28px" }} />
+              </ListItemIcon>
+              <ListItemText
+                primary="Add Employee"
+                sx={{
+                  opacity: open ? 1 : 0,
+                  display: { xs: "none", md: "block" },
+                  color: "#112846",
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
+          <ListItem
+            disablePadding
+            sx={{
+              display: "block",
+              padding: { md: "0px 5px 0px 0px" },
+              color: "black",
+              background: isActive("createuser") ? "lightgray" : "transparent",
+            }}
+            component={Link}
+            to="/createuser"
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <PersonAddAlt1Icon
+                  sx={{ color: "#EDC154", fontSize: "28px" }}
+                />
+              </ListItemIcon>
+              <ListItemText
+                primary="Create User"
+                sx={{
+                  opacity: open ? 1 : 0,
+                  display: { xs: "none", md: "block" },
+                  color: "#112846",
                 }}
               />
             </ListItemButton>

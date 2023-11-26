@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
+import Header from "../../components/Header";
+import Sidebar from "../../components/Sidebar";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import {
   Box,
@@ -13,15 +13,16 @@ import {
   styled,
 } from "@mui/material";
 
-const CreateButton = styled(Button)({
-  marginTop: "20px",
-  background: "#12596B",
+const AddEmployeeButton = styled(Button)({
+  marginTop: "24px",
+  background: "#112846",
+  borderRadius: "15px",
   "&:hover": {
-    background: "#0F4F5F",
+    background: "#192E77",
   },
 });
 
-const CreateUser = () => {
+const AddEmployeePage = () => {
   const [image, setImage] = useState(null);
   const handleFormChange = (e) => {
     // const { name, value } = e.target;
@@ -45,23 +46,27 @@ const CreateUser = () => {
           component="main"
           sx={{ flexGrow: 1, padding: "16px 0px 32px 0px" }}
         >
-          <Box paddingLeft={{ xs: 12 }} marginLeft={{xs:20}}>
+          <Box paddingLeft={{ xs: 12 }} marginLeft={{ xs: 20 }}>
             <Grid container spacing={2}>
               {/* First Column: User Profile Display */}
-              
-              <Grid item xs={12} >
+
+              <Grid item xs={12}>
                 <Paper
                   elevation={2}
                   sx={{
                     height: "90%",
-                    width:"70%",
+                    width: "70%",
                     marginTop: "70px",
-                    borderRadius: "30px",
+                    borderRadius: "10px",
                   }}
                 >
                   <Box p={5}>
-                    <Typography variant="h5" color={"#667378"}>
-                      Create User
+                    <Typography
+                      variant="h5"
+                      color={"#112846"}
+                      textAlign={"center"}
+                    >
+                      Add Employee
                     </Typography>
 
                     <form onSubmit={handleprofileInfo}>
@@ -113,7 +118,6 @@ const CreateUser = () => {
                           width: "130px",
                           cursor: "pointer",
                           borderRadius: "5px",
-                          cursor: "pointer",
                           margin: "1.5rem auto",
                         }}
                         onMouseEnter={(event) => {
@@ -187,18 +191,13 @@ const CreateUser = () => {
                         </label>
                       </div>
 
-                      <CreateButton
+                      <AddEmployeeButton
                         type="submit"
                         variant="contained"
                         fullWidth
-                        sx={{
-                          marginTop: 3,
-                          background: "#667378",
-                          borderRadius: "15px",
-                        }}
                       >
-                        Create User
-                      </CreateButton>
+                        add Employee
+                      </AddEmployeeButton>
                     </form>
                   </Box>
                 </Paper>
@@ -211,4 +210,4 @@ const CreateUser = () => {
   );
 };
 
-export default CreateUser;
+export default AddEmployeePage;

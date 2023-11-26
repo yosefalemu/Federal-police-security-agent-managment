@@ -184,7 +184,7 @@ export default function Header() {
             color="inherit"
           >
             <Avatar
-              alt="MinT"
+              alt="FederalPolice"
               src="public/images/federal.jpg"
               sx={{ width: 65, height: 65 }}
             />
@@ -194,7 +194,7 @@ export default function Header() {
             color="success"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block", color: "gray" } }}
+            sx={{ display: { xs: "none", sm: "block", color: "#112846" } }}
           >
             SAMS
           </Typography>

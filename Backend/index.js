@@ -15,8 +15,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/uploads", express.static(__dirname + "/public/assets"));
 
 const userRouter = require("./routes/userRoute");
+const imageUploadRoute = require("./routes/uploadImage");
+const fileUploadRoute = require("./routes/uploadFile");
 
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/image", imageUploadRoute);
+app.use("/api/v1/file", fileUploadRoute);
 
 app.use(notFoundMiddleWare);
 app.use(errorHandlerMiddleware);
