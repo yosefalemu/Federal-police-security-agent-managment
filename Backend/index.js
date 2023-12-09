@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/uploads", express.static(__dirname + "/public/assets"));
 
-const userRouter = require("./routes/userRoute");
+const userRouter = require("./routes/usersRoute");
 const imageUploadRoute = require("./routes/uploadImage");
 const fileUploadRoute = require("./routes/uploadFile");
 
