@@ -19,10 +19,11 @@ import {
 } from "@mui/material";
 
 const UpdateButton = styled(Button)({
-  marginTop: "20px",
-  background: "#12596B",
+  marginTop: "24px",
+  background: "#112846",
+  borderRadius: "15px",
   "&:hover": {
-    background: "#0F4F5F",
+    background: "#192E77",
   },
 });
 
@@ -57,9 +58,9 @@ const ProfilePage = () => {
         <Sidebar />
         <Box
           component="main"
-          sx={{ flexGrow: 1, padding: "16px 28px 32px 32px" }}
+          sx={{ flexGrow: 1, padding: "66px 8px 32px 8px" }}
         >
-          <Box paddingLeft={{ xs: 12, md: 0 }} paddingTop={2}>
+          <Paper>
             <Grid container spacing={2}>
               {/* First Column: User Profile Display */}
               <Grid item xs={12} md={6}>
@@ -96,12 +97,6 @@ const ProfilePage = () => {
                         marginBottom: 4,
                       }}
                     />
-                    <Box
-                      sx={{
-                        textAlign: "center",
-                        width: "100%",
-                      }}
-                    ></Box>
                     <TableContainer sx={{ width: "100%" }}>
                       <Table>
                         <TableBody>
@@ -127,160 +122,145 @@ const ProfilePage = () => {
               </Grid>
               {/* Second Column: Profile Update Form */}
               <Grid item xs={12} md={6}>
-                <Paper
-                  elevation={2}
-                  sx={{
-                    height: "90%",
-                    marginTop: "70px",
-                    borderRadius: "30px",
-                  }}
-                >
-                  <Box p={5}>
-                    <Typography variant="h5" color={"#667378"}>
-                      Update Profile
-                    </Typography>
+                <Box p={5}>
+                  <Typography
+                    variant="h5"
+                    color={"#112846"}
+                    textAlign={"center"}
+                  >
+                    Update Profile
+                  </Typography>
 
-                    <form onSubmit={handleprofileInfo}>
-                      <TextField
-                        fullWidth
-                        label="First Name"
-                        name="first_name"
-                        onChange={handleFormChange}
-                        sx={{ backgroundColor: "#F6F5F5", marginTop: 3 }}
-                      />
-                      <TextField
-                        fullWidth
-                        label="Last Name"
-                        name="last_name"
-                        onChange={handleFormChange}
-                        sx={{ backgroundColor: "#F6F5F5", marginTop: 3 }}
-                      />
-                      <TextField
-                        fullWidth
-                        label="Phone Number"
-                        name="phone_number"
-                        onChange={handleFormChange}
-                        sx={{ backgroundColor: "#F6F5F5", marginTop: 3 }}
-                      />
-                      <TextField
-                        fullWidth
-                        label="Email"
-                        name="email"
-                        onChange={handleFormChange}
-                        sx={{ backgroundColor: "#F6F5F5", marginTop: 3 }}
-                      />
-                      <TextField
-                        fullWidth
-                        label="Department"
-                        name="department"
-                        onChange={handleFormChange}
-                        sx={{ backgroundColor: "#F6F5F5", marginTop: 3 }}
-                      />
-                      <div
+                  <form onSubmit={handleprofileInfo}>
+                    <TextField
+                      fullWidth
+                      label="First Name"
+                      name="first_name"
+                      onChange={handleFormChange}
+                      sx={{ backgroundColor: "#F6F5F5", marginTop: 3 }}
+                    />
+                    <TextField
+                      fullWidth
+                      label="Last Name"
+                      name="last_name"
+                      onChange={handleFormChange}
+                      sx={{ backgroundColor: "#F6F5F5", marginTop: 3 }}
+                    />
+                    <TextField
+                      fullWidth
+                      label="Phone Number"
+                      name="phone_number"
+                      onChange={handleFormChange}
+                      sx={{ backgroundColor: "#F6F5F5", marginTop: 3 }}
+                    />
+                    <TextField
+                      fullWidth
+                      label="Email"
+                      name="email"
+                      onChange={handleFormChange}
+                      sx={{ backgroundColor: "#F6F5F5", marginTop: 3 }}
+                    />
+                    <TextField
+                      fullWidth
+                      label="Department"
+                      name="department"
+                      onChange={handleFormChange}
+                      sx={{ backgroundColor: "#F6F5F5", marginTop: 3 }}
+                    />
+                    <div
+                      style={{
+                        padding: "2rem",
+                        background: "#f0f0f0",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-around",
+                        alignItems: "center",
+                        border: "2px dashed #667378",
+                        height: "130px",
+                        width: "130px",
+                        cursor: "pointer",
+                        borderRadius: "5px",
+                        margin: "1.5rem auto",
+                      }}
+                      onMouseEnter={(event) => {
+                        event.target.style.border = "2px solid #667378";
+                      }}
+                      onMouseLeave={(event) => {
+                        event.target.style.border = "2px dashed #667378";
+                      }}
+                    >
+                      <label
                         style={{
-                          padding: "2rem",
-                          background: "#f0f0f0",
                           display: "flex",
                           flexDirection: "column",
-                          justifyContent: "space-around",
                           alignItems: "center",
-                          border: "2px dashed #667378",
-                          height: "130px",
-                          width: "130px",
-                          cursor: "pointer",
-                          borderRadius: "5px",
-                          cursor: "pointer",
-                          margin: "1.5rem auto",
-                        }}
-                        onMouseEnter={(event) => {
-                          event.target.style.border = "2px solid #667378";
-                        }}
-                        onMouseLeave={(event) => {
-                          event.target.style.border = "2px dashed #667378";
                         }}
                       >
-                        <label
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
+                        <input
+                          type="file"
+                          accept="image/*"
+                          style={{ display: "none" }}
+                          onChange={(e) => {
+                            const file = e.target.files[0];
+                            setFileName(file?.name);
+
+                            if (file) {
+                              const reader = new FileReader();
+
+                              reader.onload = (event) => {
+                                const imageUrl = event.target.result;
+                                setImage(imageUrl);
+                              };
+
+                              reader.readAsDataURL(file);
+                            }
                           }}
-                        >
-                          <input
-                            type="file"
-                            accept="image/*"
-                            style={{ display: "none" }}
-                            onChange={(e) => {
-                              const file = e.target.files[0];
-                              setFileName(file?.name);
-
-                              if (file) {
-                                const reader = new FileReader();
-
-                                reader.onload = (event) => {
-                                  const imageUrl = event.target.result;
-                                  setImage(imageUrl);
-                                };
-
-                                reader.readAsDataURL(file);
-                              }
-                            }}
+                        />
+                        {image ? (
+                          <img
+                            src={image}
+                            width={150}
+                            height={150}
+                            alt="fileName"
+                            style={{ objectFit: "cover" }}
                           />
-                          {image ? (
-                            <img
-                              src={image}
-                              width={150}
-                              height={150}
-                              alt="fileName"
-                              style={{ objectFit: "cover" }}
-                            />
-                          ) : (
-                            <div
+                        ) : (
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                            }}
+                          >
+                            <CloudUploadIcon
                               style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
+                                color: "#667378",
+                                fontSize: 50,
+                                cursor: "pointer",
+                              }}
+                            />
+                            <span
+                              style={{
+                                fontSize: 10,
+                                marginTop: 5,
+                                cursor: "pointer",
                               }}
                             >
-                              <CloudUploadIcon
-                                style={{
-                                  color: "#667378",
-                                  fontSize: 50,
-                                  cursor: "pointer",
-                                }}
-                              />
-                              <span
-                                style={{
-                                  fontSize: 10,
-                                  marginTop: 5,
-                                  cursor: "pointer",
-                                }}
-                              >
-                                Upload Image
-                              </span>
-                            </div>
-                          )}
-                        </label>
-                      </div>
+                              Upload Image
+                            </span>
+                          </div>
+                        )}
+                      </label>
+                    </div>
 
-                      <UpdateButton
-                        type="submit"
-                        variant="contained"
-                        fullWidth
-                        sx={{
-                          marginTop: 3,
-                          background: "#667378",
-                          borderRadius: "15px",
-                        }}
-                      >
-                        Update Profile
-                      </UpdateButton>
-                    </form>
-                  </Box>
-                </Paper>
+                    <UpdateButton type="submit" variant="contained" fullWidth>
+                      Update Profile
+                    </UpdateButton>
+                  </form>
+                </Box>
               </Grid>
             </Grid>
-          </Box>
+          </Paper>
         </Box>
       </Box>
     </>
