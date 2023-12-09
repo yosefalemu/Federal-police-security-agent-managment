@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const connectDB = (url) => {
   console.log(url);
   return mongoose
-    .connect(url)
+    .connect(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
     .then(() => console.log(`connected to DB...`))
     .catch((error) => console.log(error));
 };
