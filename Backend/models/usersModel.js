@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const roles = ["user", "admin", "manager", "agents"];
+const roles = ["user", "admin", "manager", "agent"];
 const UserSchema = new mongoose.Schema(
   {
     firstName: {
@@ -41,6 +41,11 @@ const UserSchema = new mongoose.Schema(
       minlength: [6, "password must be minimum length of 6"],
       required: [true, "please provide the password"],
     },
+    confirmPassword: {
+      type: String,
+      minlength: [6, "password must be minimum length of 6"],
+      required: [true, "please provide the password"],
+    },
     profilePicture: {
       type: String,
       required: [true, "please provide the profile picture"],
@@ -71,7 +76,7 @@ UserSchema.pre("save", async function (next) {
 
 UserSchema.methods.createJWT = function () {
   return jwt.sign(
-    { userId: this._id, username: this.username },
+    { userId: this._id, email: this.email, role:this.role },
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_LIFETIME }
   );
