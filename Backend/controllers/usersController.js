@@ -108,7 +108,6 @@ const updateUser = async (req, res) => {
   }
   const user = await UserSchema.findById(id);
   user.role = role;
-console.log(user.role)
   await user.save();
 
   const tokenUser = createTokenUser(user);
