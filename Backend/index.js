@@ -15,15 +15,15 @@ const cors = require("cors");
 const mongoSanitize = require("express-mongo-sanitize");
 
 // database
-const connectDB = require("./db/connect");
+const connectDB = require("./database/connect");
 
 //  routers
 const authRouter = require("./routes/authRoutes");
 const userRouter = require("./routes/userRoutes");
 
 // middleware
-const notFoundMiddleware = require("./middleware/not-found");
-const errorHandlerMiddleware = require("./middleware/error-handler");
+const notFoundMiddleware = require("./middlewares/not-found");
+const errorHandlerMiddleware = require("./middlewares/error-handler");
 
 app.set("trust proxy", 1);
 app.use(
