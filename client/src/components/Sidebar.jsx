@@ -23,13 +23,15 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAppStore } from "../appStore";
 
-const drawerWidth = "200px";
+const drawerWidth = "230px";
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
+  background: "#112846",
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -81,6 +83,7 @@ const LogOutContainer = styled(ListItem)({
   position: "absolute",
   bottom: "0",
   left: "0",
+  borderTop: "1px solid white",
 });
 
 export default function Sidebar() {
@@ -88,6 +91,8 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const open = useAppStore((state) => state.dopen);
   const location = useLocation();
+  const { role } = useSelector((state) => state.user.user);
+  console.log(role);
 
   const isActive = (route) => location.pathname === `/${route}`;
 
@@ -135,14 +140,14 @@ export default function Sidebar() {
                   justifyContent: "center",
                 }}
               >
-                <HomeIcon sx={{ color: "#EDC154", fontSize: "28px" }} />
+                <HomeIcon sx={{ color: "white", fontSize: "28px" }} />
               </ListItemIcon>
               <ListItemText
                 primary="Home"
                 sx={{
                   opacity: open ? 1 : 0,
                   display: { xs: "none", md: "block" },
-                  color: "#112846",
+                  color: "white",
                 }}
               />
             </ListItemButton>
@@ -172,168 +177,184 @@ export default function Sidebar() {
                   justifyContent: "center",
                 }}
               >
-                <PersonIcon sx={{ color: "#EDC154", fontSize: "28px" }} />
+                <PersonIcon sx={{ color: "white", fontSize: "28px" }} />
               </ListItemIcon>
               <ListItemText
                 primary="Profile"
                 sx={{
                   opacity: open ? 1 : 0,
                   display: { xs: "none", md: "block" },
-                  color: "#112846",
+                  color: "white",
                 }}
               />
             </ListItemButton>
           </ListItem>
-          <ListItem
-            disablePadding
-            sx={{
-              display: "block",
-              padding: { md: "0px 5px 0px 0px" },
-              color: "black",
-              background: isActive("agentslist") ? "lightgray" : "transparent",
-            }}
-            component={Link}
-            to="/agentslist"
-          >
-            <ListItemButton
+          {role === "admin" && (
+            <ListItem
+              disablePadding
               sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
+                display: "block",
+                padding: { md: "0px 5px 0px 0px" },
+                color: "black",
+                background: isActive("agentslist")
+                  ? "lightgray"
+                  : "transparent",
               }}
+              component={Link}
+              to="/agentslist"
             >
-              <ListItemIcon
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
                 }}
               >
-                <SecurityIcon sx={{ color: "#EDC154", fontSize: "28px" }} />
-              </ListItemIcon>
-              <ListItemText
-                primary="Agents"
-                sx={{
-                  opacity: open ? 1 : 0,
-                  display: { xs: "none", md: "block" },
-                  color: "#112846",
-                }}
-              />
-            </ListItemButton>
-          </ListItem>
-          <ListItem
-            disablePadding
-            sx={{
-              display: "block",
-              padding: { md: "0px 5px 0px 0px" },
-              color: "black",
-              background: isActive("employee") ? "lightgray" : "transparent",
-            }}
-            component={Link}
-            to="/employee"
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                <GroupsIcon sx={{ color: "#EDC154", fontSize: "28px" }} />
-              </ListItemIcon>
-              <ListItemText
-                primary="Employees"
-                sx={{
-                  opacity: open ? 1 : 0,
-                  display: { xs: "none", md: "block" },
-                  color: "#112846",
-                }}
-              />
-            </ListItemButton>
-          </ListItem>
-          <ListItem
-            disablePadding
-            sx={{
-              display: "block",
-              padding: { md: "0px 5px 0px 0px" },
-              color: "black",
-              background: isActive("addemployee") ? "lightgray" : "transparent",
-            }}
-            component={Link}
-            to="/addemployee"
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                <GroupAddIcon sx={{ color: "#EDC154", fontSize: "28px" }} />
-              </ListItemIcon>
-              <ListItemText
-                primary="Add Employee"
-                sx={{
-                  opacity: open ? 1 : 0,
-                  display: { xs: "none", md: "block" },
-                  color: "#112846",
-                }}
-              />
-            </ListItemButton>
-          </ListItem>
-          <ListItem
-            disablePadding
-            sx={{
-              display: "block",
-              padding: { md: "0px 5px 0px 0px" },
-              color: "black",
-              background: isActive("createuser") ? "lightgray" : "transparent",
-            }}
-            component={Link}
-            to="/createuser"
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                <PersonAddAlt1Icon
-                  sx={{ color: "#EDC154", fontSize: "28px" }}
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <SecurityIcon sx={{ color: "white", fontSize: "28px" }} />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Agents"
+                  sx={{
+                    opacity: open ? 1 : 0,
+                    display: { xs: "none", md: "block" },
+                    color: "white",
+                  }}
                 />
-              </ListItemIcon>
-              <ListItemText
-                primary="Create User"
+              </ListItemButton>
+            </ListItem>
+          )}
+          {role === "admin" && (
+            <ListItem
+              disablePadding
+              sx={{
+                display: "block",
+                padding: { md: "0px 5px 0px 0px" },
+                color: "black",
+                background: isActive("allemployee")
+                  ? "lightgray"
+                  : "transparent",
+              }}
+              component={Link}
+              to="/allemployee"
+            >
+              <ListItemButton
                 sx={{
-                  opacity: open ? 1 : 0,
-                  display: { xs: "none", md: "block" },
-                  color: "#112846",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
                 }}
-              />
-            </ListItemButton>
-          </ListItem>
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <GroupsIcon sx={{ color: "white", fontSize: "28px" }} />
+                </ListItemIcon>
+                <ListItemText
+                  primary="All Employees"
+                  sx={{
+                    opacity: open ? 1 : 0,
+                    display: { xs: "none", md: "block" },
+                    color: "white",
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+          )}
+
+          {(role === "admin" || "manager" || "agent") && (
+            <ListItem
+              disablePadding
+              sx={{
+                display: "block",
+                padding: { md: "0px 5px 0px 0px" },
+                color: "black",
+                background: isActive("agentemployee")
+                  ? "lightgray"
+                  : "transparent",
+              }}
+              component={Link}
+              to="/agentemployee"
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <GroupsIcon sx={{ color: "white", fontSize: "28px" }} />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Agents Employees"
+                  sx={{
+                    opacity: open ? 1 : 0,
+                    display: { xs: "none", md: "block" },
+                    color: "white",
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+          )}
+
+          {role === "agent" && (
+            <ListItem
+              disablePadding
+              sx={{
+                display: "block",
+                padding: { md: "0px 5px 0px 0px" },
+                color: "black",
+                background: isActive("addemployee")
+                  ? "lightgray"
+                  : "transparent",
+              }}
+              component={Link}
+              to="/addemployee"
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <GroupAddIcon sx={{ color: "white", fontSize: "28px" }} />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Add Employee"
+                  sx={{
+                    opacity: open ? 1 : 0,
+                    display: { xs: "none", md: "block" },
+                    color: "white",
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+          )}
 
           <LogOutContainer
             disablePadding

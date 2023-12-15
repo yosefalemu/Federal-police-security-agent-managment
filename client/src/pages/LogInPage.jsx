@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   TextField,
   Button,
@@ -7,7 +7,16 @@ import {
   Paper,
   styled,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  loginUserFail,
+  loginUserStart,
+  loginUserSuccess,
+} from "../redux-toolkit/slices/userSlice";
+import toast from "react-hot-toast";
+import ClipLoader from "react-spinners/ClipLoader";
+import { useNavigate } from "react-router-dom";
 
 const LoginButton = styled(Button)({
   marginTop: "20px",
@@ -19,8 +28,36 @@ const LoginButton = styled(Button)({
   },
 });
 const LogInPage = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loadingUser, errorUser } = useSelector((state) => state.user);
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleFormChange = (event) => {
+    const { name, value } = event.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+  const handleLogin = () => {
+    dispatch(loginUserStart());
+    axios
+      .post("http://localhost:5000/api/v1/auth/login", user)
+      .then((response) => {
+        dispatch(loginUserSuccess(response.data.user));
+        toast.success("Logged in");
+        setTimeout(() => {
+          navigate("/home");
+        }, 4000);
+      })
+      .catch((error) => {
+        dispatch(loginUserFail());
+        toast.error(error.response.data.msg);
+      });
   };
 
   return (
@@ -44,16 +81,27 @@ const LogInPage = () => {
         >
           Login
         </Typography>
-        <form onSubmit={handleSubmit}>
+        {loadingUser && (
+          <Box textAlign={"center"}>
+            <ClipLoader
+              color={"#36d7b7"}
+              loading={loadingUser}
+              size={50}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </Box>
+        )}
+        <Box>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            autoFocus
+            id="email"
+            label="Email"
+            name="email"
+            onChange={handleFormChange}
           />
           <TextField
             variant="outlined"
@@ -64,17 +112,17 @@ const LogInPage = () => {
             label="Password"
             type="password"
             id="password"
+            onChange={handleFormChange}
           />
           <LoginButton
             type="submit"
             fullWidth
             variant="contained"
-            component={Link}
-            to="/home"
+            onClick={handleLogin}
           >
             Login
           </LoginButton>
-        </form>
+        </Box>
       </Paper>
     </Box>
   );

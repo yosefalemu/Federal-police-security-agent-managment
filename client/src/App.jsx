@@ -20,7 +20,8 @@ function App() {
         <Route path="/apply" element={<ApplyPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/agentslist" element={<AgentsListPage />} />
-        <Route path="/employee" element={<EmployeePage />} />
+        <Route path="/allemployee" element={<EmployeePage />} />
+        <Route path="/agentemployee" element={<EmployeePage />} />
         <Route path="/addemployee" element={<AddEmployeePage />} />
         <Route path="/createuser" element={<CreateUserPage />} />
       </Routes>
