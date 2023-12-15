@@ -33,18 +33,15 @@ const user = createSlice({
     },
     loginUserStart: (state) => {
       state.loadingUser = true;
-      state.errorUser = false;
       state.user = {};
       return state;
     },
     loginUserSuccess: (state, action) => {
       state.loadingUser = false;
       state.user = action.payload;
-      state.errorUser = false;
       return state;
     },
-    loginUserFail: (state, action) => {
-      state.errorUser = action.payload.error;
+    loginUserFail: (state) => {
       state.loadingUser = false;
       state.user = {};
       return state;

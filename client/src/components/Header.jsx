@@ -170,7 +170,7 @@ export default function Header() {
         position="fixed"
         elevation={1}
         style={{
-          backgroundColor: "white",
+          backgroundColor: "#112846",
           color: "black",
           height: "70px",
         }}
@@ -194,7 +194,7 @@ export default function Header() {
             color="success"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block", color: "#112846" } }}
+            sx={{ display: { xs: "none", sm: "block", color: "white" } }}
           >
             SAMS
           </Typography>

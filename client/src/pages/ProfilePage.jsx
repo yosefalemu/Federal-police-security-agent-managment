@@ -16,7 +16,10 @@ import {
   Button,
   Avatar,
   styled,
+  InputLabel,
 } from "@mui/material";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const UpdateButton = styled(Button)({
   marginTop: "24px",
@@ -29,25 +32,61 @@ const UpdateButton = styled(Button)({
 
 const ProfilePage = () => {
   const [image, setImage] = useState(null);
+  const [user, setUser] = useState({});
+  const [profileInfo, setProfileInfo] = useState({});
   const userInformation = [
-    { label: "First Name", value: "Misgan" },
-    { label: "Last Name", value: "Moges" },
-    { label: "Phone Number", value: "+251953263345" },
-    { label: "Email", value: "misganmoges03@gmail.com" },
-    { label: "User Name", value: "FPCmisge" },
-    { label: "Department", value: "Developer" },
+    { label: "First Name", value: user?.firstName },
+    { label: "Middle Name", value: user?.middleName },
+    { label: "Last Name", value: user?.lastName },
+    { label: "Phone Number", value: user.phoneNumber },
+    { label: "Email", value: user?.email },
+    { label: "Role", value: user?.role },
   ];
 
-  const handleFormChange = (e) => {
-    // const { name, value } = e.target;
-    // setProfileInfo({
-    //   ...profileInfo,
-    //   [name]: value,
-    // });
-  };
+  const { userId } = useSelector((state) => state.user.user);
+  console.log("user", user);
+  console.log("profileInfo", profileInfo);
 
-  const handleprofileInfo = (e) => {
-    e.preventDefault();
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setProfileInfo({
+      ...profileInfo,
+      [name]: value,
+    });
+  };
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/api/v1/users/${userId}`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setUser(response.data);
+        setProfileInfo({
+          firstName: response.data.firstName || "",
+          middleName: response.data.middleName || "",
+          lastName: response.data.lastName || "",
+          phoneNumber: response.data.phoneNumber || "",
+        });
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const handleUpdateProfile = () => {
+    axios
+      .patch(
+        `http://localhost:5000/api/v1/users/updateProfile/${userId}`,
+        profileInfo
+      )
+      .then((response) => {
+        setUser(response.data.user);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -58,7 +97,7 @@ const ProfilePage = () => {
         <Sidebar />
         <Box
           component="main"
-          sx={{ flexGrow: 1, padding: "66px 8px 32px 8px" }}
+          sx={{ flexGrow: 1, padding: "66px 8px 32px 200px" }}
         >
           <Paper>
             <Grid container spacing={2}>
@@ -89,7 +128,7 @@ const ProfilePage = () => {
                   >
                     <Avatar
                       alt="User Image"
-                      src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+                      src={user.profilePicture}
                       sx={{
                         width: { xs: 100, md: 120, xl: 150 },
                         height: { xs: 100, md: 120, xl: 150 },
@@ -131,42 +170,41 @@ const ProfilePage = () => {
                     Update Profile
                   </Typography>
 
-                  <form onSubmit={handleprofileInfo}>
+                  <Box>
+                    <InputLabel htmlFor="firstName">First Name</InputLabel>
                     <TextField
                       fullWidth
-                      label="First Name"
-                      name="first_name"
+                      id="firstName"
+                      name="firstName"
+                      value={profileInfo?.firstName}
                       onChange={handleFormChange}
-                      sx={{ backgroundColor: "#F6F5F5", marginTop: 3 }}
+                      sx={{ backgroundColor: "#F6F5F5", marginBottom: 2 }}
                     />
+                    <InputLabel htmlFor="middleName">Middle Name</InputLabel>
                     <TextField
                       fullWidth
-                      label="Last Name"
-                      name="last_name"
+                      name="middleName"
+                      value={profileInfo?.middleName}
                       onChange={handleFormChange}
-                      sx={{ backgroundColor: "#F6F5F5", marginTop: 3 }}
+                      sx={{ backgroundColor: "#F6F5F5", marginBottom: 1 }}
                     />
+                    <InputLabel htmlFor="lastName">Last Name</InputLabel>
                     <TextField
                       fullWidth
-                      label="Phone Number"
-                      name="phone_number"
+                      name="lastName"
+                      value={profileInfo?.lastName}
                       onChange={handleFormChange}
-                      sx={{ backgroundColor: "#F6F5F5", marginTop: 3 }}
+                      sx={{ backgroundColor: "#F6F5F5", marginBottom: 1 }}
                     />
+                    <InputLabel htmlFor="phoneNumber">Phone Number</InputLabel>
                     <TextField
                       fullWidth
-                      label="Email"
-                      name="email"
+                      name="phoneNumber"
+                      value={profileInfo?.phoneNumber}
                       onChange={handleFormChange}
-                      sx={{ backgroundColor: "#F6F5F5", marginTop: 3 }}
+                      sx={{ backgroundColor: "#F6F5F5", marginBottom: 1 }}
                     />
-                    <TextField
-                      fullWidth
-                      label="Department"
-                      name="department"
-                      onChange={handleFormChange}
-                      sx={{ backgroundColor: "#F6F5F5", marginTop: 3 }}
-                    />
+
                     <div
                       style={{
                         padding: "2rem",
@@ -253,10 +291,15 @@ const ProfilePage = () => {
                       </label>
                     </div>
 
-                    <UpdateButton type="submit" variant="contained" fullWidth>
+                    <UpdateButton
+                      type="submit"
+                      variant="contained"
+                      fullWidth
+                      onClick={handleUpdateProfile}
+                    >
                       Update Profile
                     </UpdateButton>
-                  </form>
+                  </Box>
                 </Box>
               </Grid>
             </Grid>
