@@ -57,7 +57,7 @@ const loginUser = async (req, res) => {
     const tokenUser = createTokenUser(user);
     attachCookiesToResponse({ res, user: tokenUser });
 
-    res.status(StatusCodes.OK).json({ user: tokenUser, token: user.token });
+    res.status(StatusCodes.OK).json({ user, token: user.token });
   } else {
     throw new UnauthenticatedError("wrong password");
   }
