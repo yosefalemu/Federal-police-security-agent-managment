@@ -3,6 +3,7 @@ const { BadRequestError, UnauthenticatedError } = require("../errors");
 // const sendEmail = require("../utils/sendEmail");
 const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
+const path = require("path")
 const {
   createTokenUser,
   attachCookiesToResponse,
@@ -10,12 +11,8 @@ const {
 } = require("../utils");
 
 const createUser = async (req, res) => {
-  const { email, password, confirmPassword } = req.body;
-  if (password) {
-    if (password !== confirmPassword) {
-      throw new BadRequestError("passwords doesnot match");
-    }
-  }
+  const { email} = req.body;
+
   const userExists = await UserSchema.findOne({
     $or: [{ email }],
   });
@@ -24,7 +21,6 @@ const createUser = async (req, res) => {
       throw new BadRequestError("email taken");
     }
   }
-  // first registered user is an admin
   const user = await UserSchema.create(req.body);
 
   if (user) {
@@ -115,13 +111,13 @@ const updateUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: tokenUser });
 };
 const updateProfile = async (req, res) => {
-  const { firstName, middleName, lastName, phonenumber, profilePicture } =
+  const { firstName, middleName, lastName, phoneNumber, profilePicture } =
     req.body;
   if (
     !firstName ||
     !middleName ||
     !lastName ||
-    !phonenumber ||
+    !phoneNumber ||
     !profilePicture
   ) {
     throw new CustomError.BadRequestError("Please provide all values");
@@ -131,7 +127,7 @@ const updateProfile = async (req, res) => {
   user.firstName = firstName;
   user.middleName = middleName;
   user.lastName = lastName;
-  user.phonenumber = phonenumber;
+  user.phoneNumber = phoneNumber;
 
   user.profilePicture = profilePicture;
 
@@ -157,6 +153,43 @@ const updateUserPassword = async (req, res) => {
   await user.save();
   res.status(StatusCodes.OK).json({ msg: "Success! Password Updated." });
 };
+
+const uploadImage = async (req, res) => {
+  if (!req.files) {
+    throw new CustomError.BadRequestError("No File Uploaded");
+  }
+
+  const profileImage = req.files.image;
+
+  if (!profileImage.mimetype.startsWith("image")) {
+    throw new CustomError.BadRequestError("Please Upload Image");
+  }
+
+  const maxSize = 1024 * 1024;
+
+  if (profileImage.size > maxSize) {
+    throw new CustomError.BadRequestError(
+      "Please upload an image smaller than 1MB"
+    );
+  }
+
+  const sanitizedFileName = profileImage.name.replace(/\s+/g, "-");
+
+  // Add date prefix to the file name
+  const currentDate = new Date();
+  const datePrefix = currentDate.toISOString().replace(/:/g, "-").slice(0, 19); // Format: YYYY-MM-DDTHH-mm-ss
+  const prefixedFileName = `${datePrefix}-${sanitizedFileName}`;
+
+  const imagePath = path.join(
+    __dirname,
+    "../public/uploads/" + prefixedFileName
+  );
+
+  await profileImage.mv(imagePath);
+
+  res.status(StatusCodes.OK).json({ image: `${prefixedFileName}` });
+};
+
 module.exports = {
   createUser,
   loginUser,
@@ -167,4 +200,5 @@ module.exports = {
   updateUser,
   updateProfile,
   updateUserPassword,
+  uploadImage
 };

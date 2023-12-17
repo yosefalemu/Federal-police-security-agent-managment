@@ -11,11 +11,18 @@ const {
   updateUser,
   updateProfile,
   updateUserPassword,
+  uploadImage
 } = require("../controllers/usersController");
 
 router
   .route("/")
   .get( authenticateUser, authorizePermissions("admin", "manager"), getAllUsers);
+
+  router
+    .route("/uploadImage")
+    .post(
+      uploadImage
+    );
 
 router.route("/showMe").get(authenticateUser, showCurrentUser);
 router

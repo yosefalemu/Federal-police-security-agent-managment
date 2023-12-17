@@ -20,6 +20,10 @@ const connectDB = require("./database/connect");
 //  routers
 const authRouter = require("./routes/authRoutes");
 const userRouter = require("./routes/userRoutes");
+const employeeRouter = require("./routes/employeesRoute");
+const agentRouter = require("./routes/securityAgentRoutes");
+const documentRouter = require("./routes/documentRoutes")
+
 
 // middleware
 const notFoundMiddleware = require("./middlewares/not-found");
@@ -41,11 +45,14 @@ app.use(mongoSanitize());
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
 
-app.use(express.static("./public"));
+app.use("/publicfolder", express.static(__dirname + "/public"));
 app.use(fileUpload());
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/employees", employeeRouter)
+app.use("/api/v1/agents", agentRouter);
+app.use("/api/v1/documents", documentRouter)
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
