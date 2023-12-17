@@ -63,6 +63,10 @@ const ApplyButton = styled(Button)({
 
 const ApplyPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [profilePicture, setProfilePicture] = useState("");
+  const [agentLogo, setAgentLogo] = useState("");
+  const [agentFile, setAgentFile] = useState("");
+  const [ownerFile, setOwnerFile] = useState("");
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -117,46 +121,76 @@ const ApplyPage = () => {
           </Typography>
           <WholeInputContainer>
             <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="agentname"
+              id="agentName"
               label="Agent Name"
-              name="agentname"
+              name="agentName"
               autoFocus
-            />
-            <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="ownername"
-              label="Owner Name"
-              name="ownername"
-              autoFocus
             />
             <TextField
+              id="firstName"
+              label="First Name"
+              name="firstName"
+              autoFocus
               variant="outlined"
               margin="normal"
               required
               fullWidth
+            />
+            <TextField
+              id="middleName"
+              label="Middle Name"
+              name="middleName"
+              autoFocus
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+            />
+            <TextField
+              id="lastName"
+              label="Last Name"
+              name="lastName"
+              autoFocus
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+            />
+            <TextField
               id="email"
               label="Email"
               name="email"
               autoFocus
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
             />
+            <TextField
+              id="phoneNumber"
+              label="Phone Number"
+              name="phoneNumber"
+              autoFocus
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+            />
+
             <FileContainer>
               <InputContainer>
                 <Typography color={"#EDC154"}>
-                  Upload your nigd fikad
+                  Upload Your Profile Picture
                 </Typography>
                 <InputLabelContainer htmlFor="fileInput">
                   <UploadFileIcon style={{ marginRight: "5px" }} />
                   <Input
                     type="file"
                     id="fileInput"
-                    onChange={handleFileChange}
                     style={{ display: "none" }}
                   />
                 </InputLabelContainer>
@@ -171,7 +205,6 @@ const ApplyPage = () => {
                     type="file"
                     id="fileInput"
                     fullWidth
-                    onChange={handleFileChange}
                     style={{ display: "none" }}
                   />
                 </InputLabelContainer>
@@ -185,7 +218,6 @@ const ApplyPage = () => {
                   <Input
                     type="file"
                     id="fileInput"
-                    onChange={handleFileChange}
                     style={{ display: "none" }}
                   />
                 </InputLabelContainer>
@@ -199,7 +231,6 @@ const ApplyPage = () => {
                   <Input
                     type="file"
                     id="fileInput"
-                    onChange={handleFileChange}
                     style={{ display: "none" }}
                   />
                 </InputLabelContainer>
@@ -213,7 +244,6 @@ const ApplyPage = () => {
                   <Input
                     type="file"
                     id="fileInput"
-                    onChange={handleFileChange}
                     style={{ display: "none" }}
                   />
                 </InputLabelContainer>

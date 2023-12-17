@@ -17,6 +17,7 @@ import {
 import toast from "react-hot-toast";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useNavigate } from "react-router-dom";
+import LoginHeader from "../components/LoginHeader";
 
 const LoginButton = styled(Button)({
   marginTop: "20px",
@@ -61,69 +62,74 @@ const LogInPage = () => {
   };
 
   return (
-    <Box
-      sx={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Paper sx={{ width: "30%", padding: "20px 30px 80px 30px" }}>
-        <Typography
-          component="h1"
-          variant="h4"
-          textAlign={"center"}
-          color={"#EDC154"}
-          fontWeight={700}
-          sx={{ marginBottom: "30px" }}
-        >
-          Login
-        </Typography>
-        {loadingUser && (
-          <Box textAlign={"center"}>
-            <ClipLoader
-              color={"#36d7b7"}
-              loading={loadingUser}
-              size={50}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
-          </Box>
-        )}
-        <Box>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email"
-            name="email"
-            onChange={handleFormChange}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            onChange={handleFormChange}
-          />
-          <LoginButton
-            type="submit"
-            fullWidth
-            variant="contained"
-            onClick={handleLogin}
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Box>
+        <LoginHeader />
+      </Box>
+      <Box
+        sx={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Paper sx={{ width: "30%", padding: "20px 30px 80px 30px" }}>
+          <Typography
+            component="h1"
+            variant="h4"
+            textAlign={"center"}
+            color={"#EDC154"}
+            fontWeight={700}
+            sx={{ marginBottom: "30px" }}
           >
             Login
-          </LoginButton>
-        </Box>
-      </Paper>
+          </Typography>
+          {loadingUser && (
+            <Box textAlign={"center"}>
+              <ClipLoader
+                color={"#36d7b7"}
+                loading={loadingUser}
+                size={50}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            </Box>
+          )}
+          <Box>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email"
+              name="email"
+              onChange={handleFormChange}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              onChange={handleFormChange}
+            />
+            <LoginButton
+              type="submit"
+              fullWidth
+              variant="contained"
+              onClick={handleLogin}
+            >
+              Login
+            </LoginButton>
+          </Box>
+        </Paper>
+      </Box>
     </Box>
   );
 };
