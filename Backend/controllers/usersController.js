@@ -3,7 +3,7 @@ const { BadRequestError, UnauthenticatedError } = require("../errors");
 // const sendEmail = require("../utils/sendEmail");
 const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
-const path = require("path")
+const path = require("path");
 const {
   createTokenUser,
   attachCookiesToResponse,
@@ -11,7 +11,7 @@ const {
 } = require("../utils");
 
 const createUser = async (req, res) => {
-  const { email} = req.body;
+  const { email } = req.body;
 
   const userExists = await UserSchema.findOne({
     $or: [{ email }],
@@ -24,12 +24,10 @@ const createUser = async (req, res) => {
   const user = await UserSchema.create(req.body);
 
   if (user) {
-    const token = user.createJWT();
-    user.token = token;
     await user.save();
     const tokenUser = createTokenUser(user);
     attachCookiesToResponse({ res, user: tokenUser });
-    res.status(StatusCodes.CREATED).json({ user: tokenUser, token });
+    res.status(StatusCodes.CREATED).json({ user});
   } else {
     res.status(400);
     throw new BadRequestError("Invalid user data");
@@ -48,16 +46,12 @@ const loginUser = async (req, res) => {
   if (!user) {
     throw new UnauthenticatedError("Invalid creditials");
   }
-  if (user) {
-    const token = user.createJWT();
-    user.token = token;
-  }
+  
   const validPassword = await user.comparePassword(password);
   if (validPassword) {
     const tokenUser = createTokenUser(user);
     attachCookiesToResponse({ res, user: tokenUser });
-
-    res.status(StatusCodes.OK).json({ user, token: user.token });
+    res.status(StatusCodes.OK).json(user);
   } else {
     throw new UnauthenticatedError("wrong password");
   }
@@ -97,7 +91,7 @@ const showCurrentUser = async (req, res) => {
 // update user with user.save()
 const updateUser = async (req, res) => {
   const id = req.params.id;
-  const {email, role } = req.body;
+  const { email, role } = req.body;
   // console.log(role)
   if (!role) {
     throw new CustomError.BadRequestError("Please provide new role");
@@ -200,5 +194,5 @@ module.exports = {
   updateUser,
   updateProfile,
   updateUserPassword,
-  uploadImage
+  uploadImage,
 };

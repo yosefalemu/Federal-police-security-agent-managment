@@ -29,6 +29,18 @@ const documentRouter = require("./routes/documentRoutes")
 const notFoundMiddleware = require("./middlewares/not-found");
 const errorHandlerMiddleware = require("./middlewares/error-handler");
 
+// Add this middleware to your Express app
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+};
 app.set("trust proxy", 1);
 app.use(
   rateLimiter({
@@ -37,7 +49,7 @@ app.use(
   })
 );
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(xss());
 app.use(mongoSanitize());
 
