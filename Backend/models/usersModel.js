@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const roles = ["user", "admin", "manager", "agent"];
+const roles = ["user", "admin", "manager", "agent", "screener"];
 const UserSchema = new mongoose.Schema(
   {
     firstName: {
@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema(
       ],
       unique: true,
     },
-    phonenumber: {
+    phoneNumber: {
       type: String,
       required: [true, "please provide the phone number"],
     },
@@ -41,11 +41,7 @@ const UserSchema = new mongoose.Schema(
       minlength: [6, "password must be minimum length of 6"],
       required: [true, "please provide the password"],
     },
-    confirmPassword: {
-      type: String,
-      minlength: [6, "password must be minimum length of 6"],
-      required: [true, "please provide the password"],
-    },
+    
     profilePicture: {
       type: String,
       required: [true, "please provide the profile picture"],

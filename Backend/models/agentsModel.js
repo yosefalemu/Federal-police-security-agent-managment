@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
-const SecurityAgentSchema = new mongoose.Schema(
+const AgentSchema = new mongoose.Schema(
   {
     agentName: {
       type: String,
@@ -10,15 +8,12 @@ const SecurityAgentSchema = new mongoose.Schema(
       minlength: [3, "name must be minimum length of 3"],
       maxlength: [50, "name must be maximum length of 50"],
     },
-    managerId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "UserSchema",
-      required: true,
-    },
-    agentsLogo: {
+
+    agentLogo: {
       type: String,
       required: [true, "please provide the profile picture"],
     },
+
     address: {
       city: {
         type: String,
@@ -32,41 +27,54 @@ const SecurityAgentSchema = new mongoose.Schema(
         type: String,
         required: [true, "please provide kebele"],
       },
-      employees: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "EmployeeSchema",
-        },
-      ],
     },
+    firstName: {
+      type: String,
+      required: [true, "please provide the first name"],
+      minlength: [3, "name must be minimum length of 3"],
+      maxlength: [50, "name must be maximum length of 50"],
+    },
+    middleName: {
+      type: String,
+      required: [true, "please provide the middle name"],
+      minlength: [3, "name must be minimum length of 3"],
+      maxlength: [50, "name must be maximum length of 50"],
+    },
+    lastName: {
+      type: String,
+      required: [true, "please provide the last name"],
+      minlength: [3, "name must be minimum length of 3"],
+      maxlength: [50, "name must be maximum length of 50"],
+    },
+
+    email: {
+      type: String,
+      match: [
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        "please provide valid email",
+      ],
+      unique: true,
+    },
+    phoneNumber: {
+      type: String,
+      required: [true, "please provide the phone number"],
+    },
+    profilePicture: {
+      type: String,
+      required: [true, "please provide the profile picture"],
+    },
+    documentId: {
+      type: mongoose.Types.ObjectId,
+      ref: "DocumentSchema",
+      required:true,
+    },
+    userId:{
+      type:mongoose.Types.ObjectId,
+      ref:"UserSchema",
+      required:true,
+    }
   },
   { timestamps: true }
 );
 
-SecurityAgentSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (error) {
-    return next(error);
-  }
-});
-
-SecurityAgentSchema.methods.createJWT = function () {
-  return jwt.sign(
-    { userId: this._id, username: this.username },
-    process.env.JWT_SECRET,
-    { expiresIn: process.env.JWT_LIFETIME }
-  );
-};
-
-SecurityAgentSchema.methods.comparePassword = async function (
-  candidatePassword
-) {
-  return await bcrypt.compare(candidatePassword, this.password);
-};
-
-module.exports = mongoose.model("SecurityAgentSchema", SecurityAgentSchema);
+module.exports = mongoose.model("AgentSchema", AgentSchema);

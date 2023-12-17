@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
 const EmployeeSchema = new mongoose.Schema(
   {
@@ -34,11 +32,17 @@ const EmployeeSchema = new mongoose.Schema(
       type: String,
       required: [true, "please provide the phone number"],
     },
-    profilePictire: {
+    profilePicture: {
       type: String,
       required: [true, "please provide the profile picture"],
       default: "",
     },
+    userId: {
+      type: mongoose.Types.ObjectId,
+      ref: "UserSchema",
+      required: true,
+    },
+    
   },
   { timestamps: true }
 );
